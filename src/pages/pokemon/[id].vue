@@ -38,10 +38,7 @@
       </v-card-subtitle>
 
       <v-card-text>
-        <p
-          v-if="pokemon.description"
-          class="text-body-1 mb-4"
-        >
+        <p v-if="pokemon.description" class="text-body-1 mb-4">
           {{ pokemon.description }}
         </p>
       </v-card-text>
@@ -51,16 +48,18 @@
 
 <script setup>
 import { getImageUrl } from '@/utils/imageUrl'
+// Import du store Pokémon
+import { usePokemonStore } from '@/stores/pokemonStore'
 
+// Récupérer l'ID depuis les paramètres de la route
 const route = useRoute()
 
-const pokemons = ref([])
-const pokemon = computed(() => {
-  return pokemons.value.find(p => p.id === route.params.id)
-})
+// Instancier le store
+const pokemonStore = usePokemonStore()
 
-onMounted(async () => {
-  const response = await fetch('http://localhost:3535/pokemons')
-  pokemons.value = await response.json()
+// Utiliser le getter du store pour trouver le Pokémon
+// computed se met à jour automatiquement si l'ID change
+const pokemon = computed(() => {
+  return pokemonStore.getPokemonById(route.params.id)
 })
 </script>
