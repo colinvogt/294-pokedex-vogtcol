@@ -26,7 +26,7 @@ import PokemonCard from '@/components/PokemonCard.vue'
 // Instancier le store
 const pokemonStore = usePokemonStore()
 
-// Destructurer le state en gardant la réactivité
+// Déstructurer le state en gardant la réactivité
 // storeToRefs convertit chaque propriété du state en ref
 const { pokemons } = storeToRefs(pokemonStore)
 </script>
